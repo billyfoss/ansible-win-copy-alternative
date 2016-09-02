@@ -1,0 +1,10 @@
+[windows]
+win-server
+
+[windows:vars]
+ansible_ssh_user=Administrator
+ansible_ssh_pass=NotMyPassword
+ansible_ssh_port=5986
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+

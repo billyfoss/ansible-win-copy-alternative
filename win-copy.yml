@@ -1,0 +1,12 @@
+---
+# Example of win_copy on a directory
+#
+
+- hosts: windows
+  vars:
+    source: files
+    destination: 'C:\\Temp'
+  tasks:
+    - name: Copy directory to remote system
+      win_copy: src='{{source}}' dest='{{destination}}'
+

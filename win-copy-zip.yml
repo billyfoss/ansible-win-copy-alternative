@@ -1,0 +1,25 @@
+---
+# Example of compressing a directory to a package
+# before copying to the remote system
+#
+# NOTE: requires zip installed on control machine
+
+- hosts: windows
+  vars:
+    source: files
+    destination: 'C:\\Temp'
+  tasks:
+    - name: Compress directory to send in a package
+      command: zip -r temp-package.zip {{source}}
+      delegate_to: localhost
+      run_once: true
+
+    - name: Copy single compressed package
+      win_copy: src=temp-package.zip dest='{{destination}}/temp-package.zip'
+
+    - name: Extract on the remote system
+      win_unzip: src='{{destination}}/temp-package.zip' dest='{{source}}/'
+
+    - name: Clean up temp-package.zip
+      win_file: path='{{destination}}/temp-package.zip' state=absent
+
